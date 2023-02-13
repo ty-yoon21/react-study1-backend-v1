@@ -1,6 +1,6 @@
 # Welcome SpringBoot Back-End for React Front
 
-# How to Create (From Nothing)
+## How to Create (From Nothing)
 0. Download IntelliJ
 1. visit spring Initializer
 ```
@@ -23,3 +23,17 @@
 : Spring Batch
 ```
 2. commit test
+3. controller.api >
+4. service.app >
+
+
+## 궁금한 점
+1. h2 setting... 정리하자
+2. Service (Interface), ServiceImpl (implements)
+3. controller
+```
+3.1 RestController
+3.2 RequestMapping
+3.3 Controller찾아가는 방법
+
+```

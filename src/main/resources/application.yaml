@@ -1,0 +1,86 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 15MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+mybatis:
+  mapper-locations: mapper/*.xml
+
+loging:
+  level:
+    org.hibernate.type: DEBUT
+    org.springframework.cloud: DEGUG
+    org.hibernate.SQL: DEBUG #INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: DEBUG #sql parameter binding log # INFO
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    com.portal.react: DEBUG #INFO
+
+---
+
+spring:
+  profiles: default #local
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+
+  h2:
+    console:
+      enabled: true
+  datasource:
+    hikari:
+      #jdbc-url: jdbc:h2:~/test-db
+      url: jdbc:h2:~/test-db
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: 1234
+
+
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    driver-class-name: org.h2.Driver           ## local mode
+#    url: jdbc:h2:mem:userdb;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password:
+
+
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#  datasource:
+#    hikari:
+#      driver-class-name: org.h2.Driver
+#      ## local mode
+#      #url: jdbc:h2:mem:userdb;DB_CLOSE_DELAY=-1
+#      jdbc-url: jdbc:h2:tcp://localhost/~/todo
+#      ## server mode
+#      #jdbc-url: jdbc:h2:./data/testdb
+#
+#      # 또는 jdbc:h2:tcp://localhost:9092/./data/testdb
+#      username: sa
+#      password:
+---
+
+spring:
+  profiles: dev #development
+
+---
+spring:
+  profiles: prod #production
