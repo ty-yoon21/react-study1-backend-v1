@@ -12,7 +12,16 @@ spring:
     time-zone: Asia/Seoul
   mvc:
     pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+      matching-strategy: ant_path_matcher
+  #swagger Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+  #https://goyunji.tistory.com/137
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: create #none #create
+
 
 mybatis:
   mapper-locations: mapper/*.xml
@@ -28,6 +37,28 @@ loging:
     org.springframework.security: DEBUG
     com.portal.react: DEBUG #INFO
 
+#projects:
+#  app:
+#    hibernate:
+#      property:
+#        "[hibernate.dialect]": org.hibernate.dialect.MySQL8Dialect
+#        "[hibernate.show_sql]": false
+#        "[hibernate.hbm2ddl.auto]": update
+#        "[hibernate.cache.use_second_level_cache]": false
+#        "[hibernate.cache.use_query_chache]": false
+#        "[hibernate.implicit_naming_strategy]": org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+#        "[hibernate.physical_naming_strategy]": com.portal.react.config.NamingStrategy
+#    h2:
+#      console:
+#        enabled: true
+#    datasource:
+#      hikari:
+#        #jdbc-url: jdbc:h2:~/test-db
+#        url: jdbc:h2:~/test-db
+#        driver-class-name: org.h2.Driver
+#        username: sa
+#        password: 1234
+
 ---
 
 spring:
@@ -37,17 +68,33 @@ spring:
     allow-bean-definition-overriding: true
 
 
-
-  h2:
-    console:
-      enabled: true
-  datasource:
-    hikari:
-      #jdbc-url: jdbc:h2:~/test-db
-      url: jdbc:h2:~/test-db
-      driver-class-name: org.h2.Driver
-      username: sa
-      password: 1234
+projects:
+  app:
+    hibernate:
+      property:
+        "[hibernate.dialect]": org.hibernate.dialect.MySQL8Dialect
+        "[hibernate.show_sql]": false
+        "[hibernate.hbm2ddl.auto]": create-drop #none #update
+        "[hibernate.cache.use_second_level_cache]": false
+        "[hibernate.cache.use_query_chache]": false
+        "[hibernate.implicit_naming_strategy]": org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        "[hibernate.physical_naming_strategy]": com.portal.react.config.NamingStrategy
+#create : JPA가 DB와 상호작용할 때 기존에 있던 스키마(테이블)을 삭제하고 새로 만드는 것을 뜻합니다.
+#create-drop : JPA 종료 시점에 기존에 있었던 테이블을 삭제합니다.
+#update : JPA에 의해 변경된 부분만 반영합니다.
+#validate : 엔티티와 테이블이 정상 매핑되어 있는지만 검증합니다.
+#none : 초기화 동작을 사용하지 않습니다.
+    h2:
+      console:
+        enabled: true
+        path: h2-console
+    datasource:
+      hikari:
+        jdbc-url: jdbc:h2:~/test-db;MODE=MySQL
+        #url: jdbc:h2:~/test-db
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: 1234
 
 
 #  h2:

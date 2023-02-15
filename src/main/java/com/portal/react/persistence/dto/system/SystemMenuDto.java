@@ -1,7 +1,11 @@
 package com.portal.react.persistence.dto.system;
 
 
+import com.portal.react.persistence.entity.app.system.SystemMenu;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,4 +38,11 @@ public class SystemMenuDto {
     private String systemName;
 
     private List<SystemMenu> itemAded;
+    private List<SystemMenu> itemEdited;
+    private List<SystemMenu> itemRemoved;
+    private List<SystemMenu> itemSaved;
+
+    public SystemMenuDto(SystemMenu menu) {
+        BeanUtils.copyProperties(menu, this);
+    }
 }
