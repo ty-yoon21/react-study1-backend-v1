@@ -3,18 +3,18 @@ FROM T_SYS_MENU;
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER)
 VALUES(
-'10322', '00000', '', 'ROOT', '', '', 'Y', 'SYSTEM');
+'10322', '00000', '', 'ROOT', '',0, 'Y', 'SYSTEM');
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER)
 VALUES(
-'10322', '20000', '00000', 'System Mgmt.', '', '2', 'Y', 'SYSTEM');
+'10322', '20000', '00000', 'System Mgmt.', '', 2, 'Y', 'SYSTEM');
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER)
 VALUES(
-'10322', '20001', '20000', 'System List', '/app/sys/system', '1', 'Y', 'SYSTEM');
+'10322', '20001', '20000', 'System List', '/app/sys/system', 1, 'Y', 'SYSTEM');
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER)
 VALUES(
-'10322', '20002', '20000', 'System Menu Code', '/app/sys/menu', '2', 'Y', 'SYSTEM');
+'10322', '20002', '20000', 'System Menu Code', '/app/sys/menu', 2, 'Y', 'SYSTEM');
 
 

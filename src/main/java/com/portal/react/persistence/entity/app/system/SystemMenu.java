@@ -88,7 +88,7 @@ public class SystemMenu implements Serializable {
 
     @Comment("정렬순번")
     @Column(name = "sort_sq", nullable = true, length = 50)
-    private String sortSq;
+    private Integer sortSq;
 
     @Comment("사용여부")
     @Column(name = "use_yn", nullable = true, length = 50)

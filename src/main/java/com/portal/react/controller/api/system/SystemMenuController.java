@@ -9,8 +9,7 @@ import com.portal.react.persistence.vo.ItemsModifiedResponseVO;
 import com.portal.react.service.app.system.SystemMenuService;
 import com.portal.react.utils.JsonResponse;
 
-//import io.swagger.annotations.ApiOperation;
-
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +38,12 @@ public class SystemMenuController {
 
 
 
-    //@ApiOperation(value = "목록조회", notes = "목록을 조회합니다")
+    @ApiOperation(value = "목록조회", notes = "목록을 조회합니다")
     @PostMapping("list")
     @ResponseBody
     public ResponseEntity<?> findList(@RequestBody Map<String, Object> bodyParam, @PathVariable(required = false) String systemCd) {
         JsonResponse<List<SystemMenuDto>> res = new JsonResponse<List<SystemMenuDto>>("list");
-
+        System.out.println("########################## bodyParam : "+bodyParam);
         try {
             res.success(systemMenuService.findByParams(bodyParam));
         } catch (IllegalArgumentException e) {
@@ -54,6 +53,8 @@ public class SystemMenuController {
             log.error(e.getMessage());
             res.error("Exception...");
         }
+        System.out.println("########################## res : "+res);
+        System.out.println("########################## res.body() : "+res.getBody());
         return res.send();
     }
 

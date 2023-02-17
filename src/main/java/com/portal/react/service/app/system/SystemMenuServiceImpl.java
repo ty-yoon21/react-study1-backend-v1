@@ -52,8 +52,10 @@ public class SystemMenuServiceImpl implements SystemMenuService{
 
     @Override
     public List<SystemMenuDto> findByParams(Map<String, Object> param) {
+        System.out.println("##########################SysetmMenuServiceImpl - findByParams() param"+param);
         List<SystemMenuDto> auths = systemMenuRepository.findByParams(param);
 
+        System.out.println("##########################SysetmMenuServiceImpl - findByParams() auth"+auths);
         return auths;
     }
 

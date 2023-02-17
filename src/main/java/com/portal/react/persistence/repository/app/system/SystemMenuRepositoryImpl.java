@@ -54,15 +54,20 @@ public class SystemMenuRepositoryImpl extends AppQuerydslRepositorySupport imple
         String keyword = (String) param.get("keyword");
         String year = (String) param.get("year");
         String month = (String) param.get("month");
+        System.out.println("##########################SysetmMenuRepositoryImpl - findByParams() systemCd : "+systemCd);
+        System.out.println("##########################SysetmMenuRepositoryImpl - findByParams() keyword : "+param);
+
 
         StringTemplate createTime = Expressions.stringTemplate("DATE_FORMAT({0},{1}", qSystemMenu.createTime, ConstantImpl.create("%Y-%m-%d"));
         StringTemplate updateTime = Expressions.stringTemplate("DATE_FORMAT({0},{1}", qSystemMenu.createTime, ConstantImpl.create("%Y-%m-%d"));
 
+
+        System.out.println("##########################SysetmMenuRepositoryImpl - queryFactory GoGo ");
         return queryFactory.select(Projections.bean(SystemMenuDto.class,
                     qSystemMenu.systemCd,
                     qSystemMenu.prntCd,
                     qSystemMenu.menuCd,
-                    qSystemMenu.as("systemName"),
+                    //qSystemMenu.name.as("systemName"),
                     qSystemMenu.name,
                     qSystemMenu.nameEng,
                     qSystemMenu.nameEtc,
@@ -74,18 +79,18 @@ public class SystemMenuRepositoryImpl extends AppQuerydslRepositorySupport imple
                     qSystemMenu.mobileYn,
                     qSystemMenu.sortSq,
                     qSystemMenu.useYn,
-                    createTime.as("createTime"),
+                    //createTime.as("createTime"),
                     qSystemMenu.createUser,
-                    updateTime.as("updateTime"),
+                    //updateTime.as("updateTime"),
                     qSystemMenu.updateUser,
                     qSystemMenu.lvl
         ))
                 .from(qSystemMenu)
-                .where(
-                        systemCdEq(systemCd),
+/*                .where(
+                        systemCdEq("10322"),
                         nameLike(keyword)
                 )
-                .orderBy(qSystemMenu.systemCd.asc(), qSystemMenu.prntCd.asc(), qSystemMenu.menuCd.asc())
+                .orderBy(qSystemMenu.systemCd.asc(), qSystemMenu.prntCd.asc(), qSystemMenu.menuCd.asc())*/
                 .fetch();
     }
 

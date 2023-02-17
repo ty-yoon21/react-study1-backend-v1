@@ -47,7 +47,7 @@ public class QSystemMenu extends EntityPathBase<SystemMenu> {
 
     public final StringPath prntCd = createString("prntCd");
 
-    public final StringPath sortSq = createString("sortSq");
+    public final NumberPath<Integer> sortSq = createNumber("sortSq", Integer.class);
 
     public final StringPath systemCd = createString("systemCd");
 
