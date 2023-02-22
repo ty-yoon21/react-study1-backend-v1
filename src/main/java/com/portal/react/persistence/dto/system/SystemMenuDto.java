@@ -37,7 +37,7 @@ public class SystemMenuDto {
 
     private String systemName;
 
-    private List<SystemMenu> itemAded;
+    private List<SystemMenu> itemAdded;
     private List<SystemMenu> itemEdited;
     private List<SystemMenu> itemRemoved;
     private List<SystemMenu> itemSaved;

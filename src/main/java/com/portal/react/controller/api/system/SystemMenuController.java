@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;*/
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -61,14 +62,18 @@ public class SystemMenuController {
 
     @PostMapping("save")
     @ResponseBody
-    public ResponseEntity<?> save(@RequestBody SystemMenuDto systemMenuDto){
-
-        JsonResponse<ItemsModifiedResponseVO> res = new JsonResponse<>("postSite");
-
-        List<SystemMenu> itemsAdded = systemMenuDto.getItemAded();
+    public ResponseEntity<?> save(HttpServletRequest request, @RequestBody SystemMenuDto systemMenuDto){
+        System.out.println("########################## menu - save");
+        System.out.println("############## request.getParameterMap().toString() : "+request.getParameterMap().toString());
+        System.out.println("############## systemMenuDto : " + systemMenuDto.toString());
+        JsonResponse<ItemsModifiedResponseVO> res = new JsonResponse<ItemsModifiedResponseVO>("postSite");
+        System.out.println("########################## menu - save - res : "+res);
+        List<SystemMenu> itemsAdded = systemMenuDto.getItemAdded();
         List<SystemMenu> itemsEdited = systemMenuDto.getItemEdited();
         List<SystemMenu> itemsRemoved = systemMenuDto.getItemRemoved();
-
+        System.out.println("########################## menu - save - itemsAdded : "+itemsAdded);
+        System.out.println("########################## menu - save - itemsEdited : "+itemsEdited);
+        System.out.println("########################## menu - save - itemsRemoved : "+itemsRemoved);
         try {
             int addedCnt = systemMenuService.add(itemsAdded).size();
             int updatedCnt = systemMenuService.edit(itemsEdited).size();

@@ -12,6 +12,7 @@ public class ItemsModifiedResponseVO {
     private int editedItemsRequestCount;
     private int deletedItemsRequestedCount;
     private int savedItemsRequestedCount;
+
     private int addedItmesResultCount;
     private int editedItmesResultCount;
     private int deletedItemsResultCount;

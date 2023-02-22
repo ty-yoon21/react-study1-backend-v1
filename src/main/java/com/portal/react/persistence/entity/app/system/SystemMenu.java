@@ -100,7 +100,7 @@ public class SystemMenu implements Serializable {
 
 
     @Comment("등록자_아이디")
-    @Column(name = "create_user", nullable = false, length = 50)
+    @Column(name = "create_user", nullable = true, length = 50)
     private String createUser;
 
     @JsonIgnore
