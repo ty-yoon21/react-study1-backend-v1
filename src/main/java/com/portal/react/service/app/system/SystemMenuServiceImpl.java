@@ -156,9 +156,9 @@ public class SystemMenuServiceImpl implements SystemMenuService{
     }
 
     @Override
-    public List<SystemMenuDto> getSystemMenu(String roles) throws Exception {
-        List<SystemMenu> menus = systemMenuRepository.selectSystemTreeMenu(roles);
-
+    public List<SystemMenuDto> getSystemMenu() throws Exception {
+        List<SystemMenu> menus = systemMenuRepository.selectSystemTreeMenu();
+        System.out.println("########################## menus : "+menus);
         return menus.stream().map(SystemMenuDto::new).collect(Collectors.toList());
     }
 

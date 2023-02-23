@@ -102,15 +102,18 @@ public class SystemMenuController {
     @PostMapping("getSystemMenuList")
     @ResponseBody
     public ResponseEntity<?> getSystemMenuList() throws  Exception {
-
+        System.out.println("########################## menu - getSystemMenuList");
         JsonResponse<List<SystemMenuDto>> res = new JsonResponse<>("menuList");
         try {
 /*            Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
             String roles = StringUtils.collectionToCommaDelimitedString(authorities);
             res.success((systemMenuService.getSystemMenu(roles)));*/
+            res.success(systemMenuService.getSystemMenu());
         } catch (Exception e) {
             throw new Exception(e);
         }
+        System.out.println("########################## res : "+res);
+        System.out.println("########################## res.body() : "+res.getBody());
         return res.send();
     }
 

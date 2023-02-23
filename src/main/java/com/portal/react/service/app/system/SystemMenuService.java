@@ -32,7 +32,7 @@ public interface SystemMenuService {
 
     public void remove(SystemMenu systemMenu) throws NotFoundException;
 
-    List<SystemMenuDto> getSystemMenu(String roles) throws Exception;
+    List<SystemMenuDto> getSystemMenu() throws Exception;
 
     public List<SystemMenu> save(List<SystemMenu> systemMenu);
 
