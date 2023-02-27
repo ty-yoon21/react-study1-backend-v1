@@ -3,6 +3,7 @@ package com.portal.react.persistence.entity.app.system;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.react.persistence.dto.system.SystemMenuDto;
 import com.portal.react.persistence.entity.app.system.key.SystemMenuPk;
+import com.portal.react.persistence.entity.app.system.key.SystemMenuSubPk;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,11 +28,11 @@ import java.util.Date;
 )
 @Data
 @NoArgsConstructor
-@IdClass(SystemMenuPk.class)
+@IdClass(SystemMenuSubPk.class)
 @DynamicInsert
 @DynamicUpdate
 //@org.hibernate.annotations.Table(comment= "시스템메뉴코드", appliesTo = "T_SYS_MENU")
-public class SystemMenu implements Serializable {
+public class SystemMenuSub implements Serializable {
 
     @Id
     @Comment("시스템코드")
@@ -117,27 +118,13 @@ public class SystemMenu implements Serializable {
     @Column(name = "update_time", nullable = true, length = 50)
     private Date updateTime;
 
-    @Builder
-    public SystemMenu(String systemCd, String menuCd, String prntCd, String name, String filePath, String pcYn,
-                      String mobileYn, String createUser, Date createTime, String updateUser, Date updateTime, int lvl) {
-        this.systemCd = systemCd;
-        this.menuCd = menuCd;
-        this.prntCd = prntCd;
-        this.name = name;
-        this.filePath = filePath;
-        this.pcYn = pcYn;
-        this.mobileYn = mobileYn;
-        this.createUser = createUser;
-        this.createTime = createTime;
-        this.updateUser = updateUser;
-        this.updateTime = updateTime;
-        this.lvl = lvl;
+    @Column(nullable = true, length = 100)
+    private String topic;
 
-    }
+    @Column(nullable = true, length = 100)
+    private String kafkaOffset;
 
-    public SystemMenu(SystemMenuDto menuDto) {
-        BeanUtils.copyProperties(menuDto, this);
-    }
-
+    @Column(nullable = true, length = 100)
+    private String messageKey;
 
 }

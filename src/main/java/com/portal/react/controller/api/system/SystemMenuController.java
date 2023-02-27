@@ -1,26 +1,21 @@
 package com.portal.react.controller.api.system;
 
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.portal.react.persistence.dto.system.SystemMenuDto;
 import com.portal.react.persistence.entity.app.system.SystemMenu;
 import com.portal.react.persistence.vo.ItemsModifiedResponseVO;
 import com.portal.react.service.app.system.SystemMenuService;
+import com.portal.react.service.kafka.producer.KafkaProducer;
 import com.portal.react.utils.JsonResponse;
-
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-/*import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;*/
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +26,12 @@ import java.util.Map;
 public class SystemMenuController {
 
     private final SystemMenuService systemMenuService;
+    private final KafkaProducer kafkaProducer;
 
     @Autowired
-    public SystemMenuController(SystemMenuService systemMenuService) {
+    public SystemMenuController(SystemMenuService systemMenuService, KafkaProducer kafkaProducer) {
         this.systemMenuService = systemMenuService;
+        this.kafkaProducer = kafkaProducer;
     }
 
 
@@ -87,6 +84,8 @@ public class SystemMenuController {
                     .deletedItemsRequestedCount(itemsRemoved.size())
                     .deletedItemsResultCount(deletedCnt).build());
 
+
+            this.kafkaProducer.pubSystemMenuInfo(systemMenuDto);
 
         } catch(JSONException e) {
             log.error("Exception", e);

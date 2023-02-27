@@ -51,6 +51,8 @@ dependencies {
 //	implementation 'commons-dbcp:commons-dbcp:1.4'
 ////	implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 
+	implementation 'org.springframework.kafka:spring-kafka'
+
 	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
 
 	implementation 'org.json:json:20220320'
