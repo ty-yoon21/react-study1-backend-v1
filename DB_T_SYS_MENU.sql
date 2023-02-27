@@ -11,10 +11,10 @@ VALUES(
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER, LVL)
 VALUES(
-          '10322', '20001', '20000', 'System List', '/app/sys/system', 1, 'Y', 'SYSTEM', 2);
+          '10322', '20001', '20000', 'System List (not dev.)', '/app/sys/system', 1, 'Y', 'SYSTEM', 2);
 
 INSERT INTO T_SYS_MENU (SYSTEM_CD, MENU_CD, PRNT_CD, NAME, MENU_PATH, SORT_SQ, USE_YN, CREATE_USER, LVL)
 VALUES(
-          '10322', '20002', '20000', 'System Menu Code', '/app/sys/menu', 2, 'Y', 'SYSTEM', 2);
+          '10322', '20002', '20000', 'System Menu Code (O)', '/app/sys/menu', 2, 'Y', 'SYSTEM', 2);
 
 
