@@ -1,5 +1,12 @@
 # Welcome SpringBoot Back-End for React Front
 
+## Kafka
+현재 카프카가 로컬에 설정되어 있는것을 가정함  
+카프가 없이 실행되기 위해서는 아래 내용 처리 후 ./gradle bootRun하기 바람
+1. application.yaml에 kafka 관련 주석처리
+2. service/kafka 폴더 삭제
+3. SystemMenuController.java의 kafka 관련 내용 제거
+
 ## How to Create (From Nothing)
 0. Download IntelliJ
 1. visit spring Initializer  

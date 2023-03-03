@@ -21,7 +21,7 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
-    environment:
+    environment:    
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
