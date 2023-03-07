@@ -2,6 +2,8 @@ package com.portal.react.security.config;
 
 import com.portal.react.security.jwt.JwtAuthenticationFilter;
 import com.portal.react.security.jwt.JwtEntryPoint;
+import com.portal.react.service.auth.AuthService;
+import com.portal.react.service.auth.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,12 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors()
                 .and()
-                .csrf().disable()
+                .csrf()
+                .disable()
                 //csrf https://velog.io/@woohobi/Spring-security-csrf%EB%9E%80
                 .authorizeRequests()
-                .antMatchers("/api/auth/login", "/api/auth/isAuth").permitAll()
+                .antMatchers("/api/auth/login", "/api/auth/isAuth", "/login").permitAll()
                 .antMatchers("/logout").authenticated()
-                .anyRequest().hasRole("USER")
+                .anyRequest().permitAll()//.hasRole("USER")
 
                 .and()
                 .exceptionHandling()

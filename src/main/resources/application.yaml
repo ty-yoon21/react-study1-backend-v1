@@ -2,6 +2,8 @@ server:
   port: 8080
   servlet:
     context-path: /
+jwt:
+  secret: A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQ
 spring:
   servlet:
     multipart:
@@ -21,7 +23,9 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: create #none #create
-
+  redis:
+    port: 6379
+    host: localhost
 
 mybatis:
   mapper-locations: mapper/*.xml
@@ -86,6 +90,9 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+  redis:
+    port: 6379
+    host: localhost
 
 projects:
   app:

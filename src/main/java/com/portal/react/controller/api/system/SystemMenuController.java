@@ -104,7 +104,7 @@ public class SystemMenuController {
         System.out.println("########################## menu - getSystemMenuList");
         JsonResponse<List<SystemMenuDto>> res = new JsonResponse<>("menuList");
         try {
-/*            Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+/*            Collection<SimpleGrantedSystemAuth> authorities = (Collection<SimpleGrantedSystemAuth>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
             String roles = StringUtils.collectionToCommaDelimitedString(authorities);
             res.success((systemMenuService.getSystemMenu(roles)));*/
             res.success(systemMenuService.getSystemMenu());

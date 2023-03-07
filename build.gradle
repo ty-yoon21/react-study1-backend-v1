@@ -29,11 +29,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.h2database:h2'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//	security & jwt
+	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
@@ -52,14 +59,9 @@ dependencies {
 ////	implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 
 	implementation 'org.springframework.kafka:spring-kafka'
-
 	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
-
 	implementation 'org.json:json:20220320'
 	implementation 'org.apache.commons:commons-collections4:4.0'
-
-
-
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
