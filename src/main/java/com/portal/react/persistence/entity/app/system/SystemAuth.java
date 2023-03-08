@@ -1,5 +1,6 @@
 package com.portal.react.persistence.entity.app.system;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 @Builder
-public class SystemAuth implements GrantedAuthority{
+public class SystemAuth {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -27,31 +28,12 @@ public class SystemAuth implements GrantedAuthority{
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private SystemUser systemUser;
 
     private String role;
 
-    public static SystemAuth ofUser(SystemUser systemUser) {
-        return SystemAuth.builder()
-                .role("ROLE_USER")
-                .systemUser(systemUser)
-                .build();
-    }
-
-    public static SystemAuth ofAdmin(SystemUser systemUser) {
-        return SystemAuth.builder()
-                .role("ROLE_ADMIN")
-                .systemUser(systemUser)
-                .build();
-    }
-
-
-//    public String getRole() {
-//        return role;
-//    }
-
-    @Override
-    public String getAuthority() {
-        return role;
+    public void setSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
     }
 }

@@ -4,10 +4,7 @@ package com.portal.react.persistence.entity.app.system;
 import com.portal.react.persistence.dto.system.SystemUserJoinDto;
 import lombok.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 import static javax.persistence.CascadeType.ALL;
@@ -26,56 +23,25 @@ public class SystemUser {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name = "user_name", unique = true)
-    private String username;
+    @Column(unique = true)
+    private String account;
+
+    private String password;
+
+    @Column(name = "user_name")
+    private String userName;
+
+    private String nickname;
 
     @Column(unique = true)
     private String email;
 
-    private String password;
-
-    @Column(unique = true)
-    private String nickname;
-
-
-    @OneToMany(mappedBy = "systemUser", cascade = ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "systemUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Builder.Default
-    private Set<SystemAuth> systemAuths = new HashSet<>();
+    private List<SystemAuth> roles = new ArrayList<>();
 
-    public static SystemUser ofUser(SystemUserJoinDto systemUserJoinDto) {
-        SystemUser systemUser = SystemUser.builder()
-                .username(UUID.randomUUID().toString())
-                .email(systemUserJoinDto.getEmail())
-                .password(systemUserJoinDto.getPassword())
-                .nickname(systemUserJoinDto.getNickname())
-                .build();
-        systemUser.addSystemAuth(SystemAuth.ofUser(systemUser));
-        return systemUser;
-    }
-
-    public static SystemUser ofAdmin(SystemUserJoinDto systemUserJoinDto) {
-        SystemUser systemUser = SystemUser.builder()
-                .username(UUID.randomUUID().toString())
-                .email(systemUserJoinDto.getEmail())
-                .password(systemUserJoinDto.getPassword())
-                .nickname(systemUserJoinDto.getNickname())
-                .build();
-        systemUser.addSystemAuth(SystemAuth.ofAdmin(systemUser));
-        return systemUser;
-    }
-
-    private void addSystemAuth(SystemAuth systemAuth) {
-        systemAuths.add(systemAuth);
-    }
-
-//    public List<String> getRoles() {
-//        return systemAuths.stream()
-//                .map(SystemAuth::getRole)
-//                .collect(toList());
-//    }
-    public List<String> getSystemAuths() {
-        return systemAuths.stream()
-                .map(SystemAuth::getRole)
-                .collect(toList());
+    public void setRoles(List<SystemAuth> role) {
+        this.roles = role;
+        role.forEach(o -> o.setSystemUser(this));
     }
 }

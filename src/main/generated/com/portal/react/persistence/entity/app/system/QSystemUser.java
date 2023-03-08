@@ -20,6 +20,8 @@ public class QSystemUser extends EntityPathBase<SystemUser> {
 
     public static final QSystemUser systemUser = new QSystemUser("systemUser");
 
+    public final StringPath account = createString("account");
+
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -28,9 +30,9 @@ public class QSystemUser extends EntityPathBase<SystemUser> {
 
     public final StringPath password = createString("password");
 
-    public final SetPath<SystemAuth, QSystemAuth> systemAuths = this.<SystemAuth, QSystemAuth>createSet("systemAuths", SystemAuth.class, QSystemAuth.class, PathInits.DIRECT2);
+    public final ListPath<SystemAuth, QSystemAuth> roles = this.<SystemAuth, QSystemAuth>createList("roles", SystemAuth.class, QSystemAuth.class, PathInits.DIRECT2);
 
-    public final StringPath username = createString("username");
+    public final StringPath userName = createString("userName");
 
     public QSystemUser(String variable) {
         super(SystemUser.class, forVariable(variable));
