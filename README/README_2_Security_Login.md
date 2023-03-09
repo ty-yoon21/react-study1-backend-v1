@@ -36,3 +36,38 @@ https://info-lab.tistory.com/42
 : redis bind
 
 ```
+
+# 3. Security
+```java
+// Spring security 5.7 ver... WebSecurityConfigurerAdapter deprecated...
+// spring security + jwt
+// https://velog.io/@junho5336/SpringBoot-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-with.-SpringSecurity-JWT
+
+// Redis + JWT Refresh Token
+// https://wildeveloperetrain.tistory.com/59
+
+// JWT 적용 전략
+// https://velog.io/@yaytomato/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%90%EC%84%9C-%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0
+// https://velog.io/@0307kwon/JWT%EB%8A%94-%EC%96%B4%EB%94%94%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%B4%EC%95%BC%ED%95%A0%EA%B9%8C-localStorage-vs-cookie
+// XSS, CSRF, CORS, Cookie, Session, Token
+```
+
+### 적용순서
+1. Front에서 로그인, 회원등록 페이지 생성
+2. Back단에서 Security설정, JWT설정, 로그인/회원등록 로직 구현
+3. JWT Refresh Token 설정
+
+### 상세
+1. Front에서 로그인, 회원등록 페이지 생성
+2. Back단에서 Security설정, JWT설정, 로그인/회원등록 로직 구현
+```
+1. security/config/SecurityConfig.java
+--> Spring Security 설정 (+ WebSecurity, JWT Provider, JwtAuthenticationFilter 적용)
+2. security/jwt/JwtAuthenticationFilter.java
+--> token 검증 및 권한정보 획득
+3. security/jwt/JwtEntryPoint.java
+--> JWT 관련 에러 처리
+4. security/jwt/JwtProvider.java
+--> JwtAuthenticationFilter.java에서 하는 실제적인 utils 기능
+--> 토큰생성, 검증, 권한정보획득, 
+```
