@@ -42,7 +42,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
         http
                 // ID, Password 문자열을 Base64로 인코딩하여 전달하는 구조
                 .httpBasic().disable()
@@ -71,6 +70,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                     // 회원가입과 로그인은 모두 승인
                     .antMatchers("/api/auth/login").permitAll()
+                    .antMatchers("/api/auth/refresh").permitAll()
                     .antMatchers("/api/auth/register").permitAll()
                     .and()
                     // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
@@ -88,6 +88,9 @@ public class SecurityConfig {
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
                         // 권한 문제가 발생했을 때 이 부분을 호출한다.
+//                            401(Unauthorized)
+//                            상태: 클라이언트가 인증되지 않았거나, 유효한 인증 정보가 부족하여 요청이 거부됨
+//                            예시: 사용자가 로그인되지 않은 경우
                         response.setStatus(403);
                         response.setCharacterEncoding("utf-8");
                         response.setContentType("text/html; charset=UTF-8");
@@ -98,16 +101,16 @@ public class SecurityConfig {
                     @Override
                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
                         // 인증문제가 발생했을 때 이 부분을 호출한다.
+//                            403(Forbidden)
+//                            상태: 서버가 해당 요청을 이해했지만, 권한이 없어 요청이 거부됨
+//                            예시: 사용자가 권한이 없는 요청을 하는 경우
                         response.setStatus(401);
                         response.setCharacterEncoding("utf-8");
                         response.setContentType("text/html; charset=UTF-8");
-                        response.getWriter().write("인증되지 않은 사용자입니다.");
+                        response.getWriter().write("AcessExpired");
                     }
                 });
-
         return http.build();
-
-
     }
 
     @Bean

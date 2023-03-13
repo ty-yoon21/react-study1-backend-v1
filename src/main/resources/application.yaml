@@ -23,9 +23,12 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: create #none #create
+  cache:
+    type: redis
   redis:
     port: 6379
     host: localhost
+
 
 mybatis:
   mapper-locations: mapper/*.xml

@@ -19,7 +19,17 @@ public class JpaUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         SystemUser systemUser = systemUserRepository.findByAccount(username).orElseThrow(
-                () -> new UsernameNotFoundException("Invalid authentication!")
+                () -> new UsernameNotFoundException("Invalid authentication! by username")
+        );
+
+        return new CustomUserDetails(systemUser);
+    }
+
+
+    public UserDetails loadUserByAccount(String account) throws UsernameNotFoundException {
+
+        SystemUser systemUser = systemUserRepository.findByAccount(account).orElseThrow(
+                () -> new UsernameNotFoundException("Invalid authentication! by Account")
         );
 
         return new CustomUserDetails(systemUser);

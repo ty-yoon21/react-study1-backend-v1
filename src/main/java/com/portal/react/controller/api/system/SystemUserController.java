@@ -33,7 +33,10 @@ public class SystemUserController {
     public ResponseEntity<?> signin(HttpServletRequest request, @RequestBody SignRequestDto signRequestDto) throws Exception {
         System.out.println("############ controller api/auth/login : request : "+request);
         System.out.println("############ controller api/auth/login : request : "+signRequestDto);
-/*        JsonResponse<SignResponseDto> res = new JsonResponse<SignResponseDto>("userLogin");
+
+        return new ResponseEntity<>(signService.login(request, signRequestDto), HttpStatus.OK);
+
+        /*        JsonResponse<SignResponseDto> res = new JsonResponse<SignResponseDto>("userLogin");
         try{
             signService.login(signRequestDto);
         } catch(JSONException e) {
@@ -44,7 +47,13 @@ public class SystemUserController {
             res.error("Something Wrong");
         }
         return res.send();*/
-        return new ResponseEntity<>(signService.login(signRequestDto), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/refresh")
+    public ResponseEntity<?> generateAccessJwtByRefreshToken(HttpServletRequest request) throws Exception {
+        System.out.println("############ controller api/auth/refresh : request : "+request);
+
+        return new ResponseEntity<>(signService.generateAccessJwtByRefreshToken(request), HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")

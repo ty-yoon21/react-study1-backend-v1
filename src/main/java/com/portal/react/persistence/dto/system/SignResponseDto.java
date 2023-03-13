@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,12 @@ public class SignResponseDto {
 
     private String email;
 
+    @Builder.Default
     private List<SystemAuth> roles = new ArrayList<>();
 
     private String token;
+
+    private Cookie refreshToken;
 
     public SignResponseDto(SystemUser systemUser) {
         this.id = systemUser.getId();
