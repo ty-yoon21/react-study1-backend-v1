@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -72,6 +75,32 @@ public class SystemUserController {
         }
         return res.send();
         //return new ResponseEntity<>(signService.register(request), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/isAuth")
+    public ResponseEntity<?> isAuth(@RequestBody Map<String, String> bodyParam, HttpServletRequest request, Principal principal) throws Exception {
+
+        JsonResponse<Map<Object, Object>> res = new JsonResponse<>("checkAuth");
+        Map<Object, Object> map = new HashMap<>();
+        System.out.println("###################### isAuth - Principal : "+principal);
+        try {
+            if (principal != null) {
+                map.put("isAuth", true);
+            } else {
+                if(signService.checkRefreshTokenValid(request)){
+                    map.put("isAuth", true);
+                }else{
+                    map.put("isAuth", false);
+                }
+
+            }
+            res.success(map);
+        } catch (Exception e) {
+            log.error("Exception e : ", e);
+            throw new Exception(e);
+        }
+
+        return res.send();
     }
 
     @GetMapping("/user/get")

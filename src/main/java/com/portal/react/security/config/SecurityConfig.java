@@ -72,6 +72,7 @@ public class SecurityConfig {
                     .antMatchers("/api/auth/login").permitAll()
                     .antMatchers("/api/auth/refresh").permitAll()
                     .antMatchers("/api/auth/register").permitAll()
+                    .antMatchers("/api/auth/isAuth").permitAll()
                     .and()
                     // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                     //.antMatchers("/admin/**").hasRole("ADMIN")

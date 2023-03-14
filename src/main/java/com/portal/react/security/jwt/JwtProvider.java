@@ -36,7 +36,7 @@ public class JwtProvider {
     // 만료시간 : 1Hour
     //private final long jwtAccessExpire = 1000L * 60 * 60;
     // test 1분
-    private final long jwtAccessExpire = 1000L * 60 * 1;
+    private final long jwtAccessExpire = 1000L * 60 * 2;
 
     public final static long jwtRefreshExpire = 1000L * 60 * 60 * 24;
     final static public String REFRESH_TOKEN_NAME = "jwtRefreshToken";
@@ -142,6 +142,18 @@ public class JwtProvider {
             } else {
                 token = token.split(" ")[1].trim();
             }
+            System.out.println("######### token : "+token);
+            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
+            // 만료되었을 시 false
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // 토큰 검증
+    public boolean validateRefreshToken(String token) {
+        try {
             System.out.println("######### token : "+token);
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
             // 만료되었을 시 false

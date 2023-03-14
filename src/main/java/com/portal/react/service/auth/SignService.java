@@ -44,6 +44,26 @@ public class SignService {
                 .build();
     }
 
+    public boolean checkRefreshTokenValid(HttpServletRequest request) throws Exception {
+        Cookie jwtRefreshTokenCookie = JwtCookieUtil.getCookie(request,JwtProvider.REFRESH_TOKEN_NAME);
+        if(jwtRefreshTokenCookie == null){
+            System.out.println("################# cookie null");
+            return false;
+        }else {
+            String jwtRefreshToken = jwtRefreshTokenCookie.getValue();
+
+            if(jwtProvider.validateRefreshToken(jwtRefreshToken)){
+                System.out.println("############ refresh true");
+                return true;
+            }else{
+                System.out.println("############ refresh false");
+                return false;
+            }
+        }
+
+
+    }
+
     public SignResponseDto login(HttpServletRequest request, SignRequestDto signRequestDto) throws Exception {
         SystemUser systemUser = systemUserRepository.findByAccount(signRequestDto.getAccount()).orElseThrow(() ->
                 new BadCredentialsException("잘못된 계정정보입니다."));
@@ -55,7 +75,8 @@ public class SignService {
         // Refresh JWT가 없다면 생성
         String jwtRefreshToken = null;
         Cookie jwtRefreshTokenCookie = JwtCookieUtil.getCookie(request,JwtProvider.REFRESH_TOKEN_NAME);
-        if(jwtRefreshTokenCookie==null){
+        boolean isRefreshAvailable = jwtProvider.validateRefreshToken(jwtRefreshTokenCookie.getValue());
+        if(jwtRefreshTokenCookie==null || !isRefreshAvailable){
             jwtRefreshToken = jwtProvider.createRefreshToken(systemUser.getAccount(), systemUser.getRoles());
             jwtRefreshTokenCookie = JwtCookieUtil.createCookie(jwtProvider.REFRESH_TOKEN_NAME, jwtRefreshToken);
             redisUtill.setDataExpire(jwtRefreshToken, systemUser.getAccount(), JwtProvider.jwtRefreshExpire);
