@@ -22,6 +22,9 @@ import java.security.Key;
 import java.util.Date;
 import java.util.List;
 
+
+// 토큰을 생성하고 검증하는 클래스입니다.
+// 해당 컴포넌트는 필터클래스에서 사전 검증을 거칩니다.
 @RequiredArgsConstructor
 @Component
 public class JwtProvider {
@@ -43,7 +46,7 @@ public class JwtProvider {
 
     private final JpaUserDetailsService userDetailsService;
 
-    //JWT secret key는
+    // 객체 초기화, secretKey를 byte변환 후  인코딩한다.
     @PostConstruct
     protected void init() {
         secretKey = Keys.hmacShaKeyFor(salt.getBytes(StandardCharsets.UTF_8));
@@ -110,10 +113,10 @@ public class JwtProvider {
         claims.put("account", account);
         Date now = new Date();
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtExpire))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .setClaims(claims)      //정보저장
+                .setIssuedAt(now)       //토큰 발행 시간
+                .setExpiration(new Date(now.getTime() + jwtExpire))     // set Expire Time
+                .signWith(secretKey, SignatureAlgorithm.HS256)          // 사용할 암호화 알고리즘과 signature 에 들어갈 secret값 세팅
                 .compact();
     }
 
@@ -133,7 +136,7 @@ public class JwtProvider {
     public String resolveToken(HttpServletRequest request) {return request.getHeader("Authorization");
     }
 
-    // 토큰 검증
+    // 토큰 검증 (유효성, 말료일자)
     public boolean validateToken(String token) {
         try {
             // Bearer 검증
